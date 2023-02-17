@@ -24,4 +24,9 @@ public readonly struct Result<T>
     {
         return new Result<T>(value);
     }
+
+    public static implicit operator Result<T>(Exception error)
+    {
+        return new Result<T>(error);
+    }
 }

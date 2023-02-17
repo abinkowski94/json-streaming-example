@@ -1,11 +1,33 @@
+using JsonStreamingServer.Core.Abstractions.Handlers;
+using JsonStreamingServer.Core.Abstractions.Services;
+using JsonStreamingServer.Core.Abstractions.Suppliers;
+using JsonStreamingServer.Core.Handlers;
+using JsonStreamingServer.Core.Services;
+using JsonStreamingServer.Suppliers.Generator;
+using System.Text.Json.Serialization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(cfg =>
+    {
+        cfg.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersSupplierGenerator>();
+
+builder.Services.AddScoped<HotelOfferExternalIdGeneatingHandler>();
+builder.Services.AddScoped(sp => ActivatorUtilities.CreateInstance<HotelOfferSupplierHandler>(sp, sp.GetRequiredService<HotelOfferExternalIdGeneatingHandler>()));
+
+builder.Services.AddScoped<IHotelOfferRequestHandler>(sp => sp.GetRequiredService<HotelOfferSupplierHandler>()); ;
+
+builder.Services.AddScoped<IHotelService, HotelService>();
 
 var app = builder.Build();
 

@@ -1,19 +1,22 @@
-﻿using JsonStreamingServer.Core.Abstractions.Services;
+﻿using JsonStreamingServer.Core.Abstractions.Handlers;
+using JsonStreamingServer.Core.Abstractions.Services;
 using JsonStreamingServer.Core.Models.Domain;
 using JsonStreamingServer.Core.Models.Requests;
 using JsonStreamingServer.Core.Models.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JsonStreamingServer.Core.Services;
 
-internal class HotelService : IHotelService
+public class HotelService : IHotelService
 {
-    public async IAsyncEnumerable<Result<HotelOffer>> GetHotelOffers(GetHotelOffersRequest request, CancellationToken cancellationToken)
+    private readonly IHotelOfferRequestHandler _requestHandler;
+
+    public HotelService(IHotelOfferRequestHandler requestHandler)
     {
-        yield break;
+        _requestHandler = requestHandler;
+    }
+
+    public IAsyncEnumerable<Result<HotelOffer>> GetHotelOffers(GetHotelOffersRequest request, CancellationToken cancellationToken)
+    {
+        return _requestHandler.GetHotelOffersAsync(request, cancellationToken);
     }
 }
