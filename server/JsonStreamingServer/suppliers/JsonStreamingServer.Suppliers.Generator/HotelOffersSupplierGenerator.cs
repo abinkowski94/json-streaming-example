@@ -1,4 +1,6 @@
-﻿using JsonStreamingServer.Core.Abstractions.Suppliers;
+﻿using Bogus;
+using Bogus.Distributions.Gaussian;
+using JsonStreamingServer.Core.Abstractions.Suppliers;
 using JsonStreamingServer.Core.Models.Domain;
 using JsonStreamingServer.Core.Models.Requests;
 using JsonStreamingServer.Core.Models.Results;
@@ -12,36 +14,25 @@ public class HotelOffersSupplierGenerator : IHotelOffersSupplier
         GetHotelOffersRequest request,
         [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        yield return await Task.FromResult(new HotelOffer
-        {
-            Id = Guid.NewGuid(),
-            Name = "Casey Key Resort - Gulf Shores",
-            Avaliability = new DateRange
-            {
-                From = new DateOnly(2023, 10, 10),
-                To = new DateOnly(2023, 10, 25),
-            },
-            TotalPrice = new Price
-            {
-                Value = 152m,
-                Currency = "EUR",
-            },
-        });
+        var faker = new Faker();
 
-        yield return await Task.FromResult(new HotelOffer
+        for (int i = 0; i < 100; i++)
         {
-            Id = Guid.NewGuid(),
-            Name = "Addy's Villas",
-            Avaliability = new DateRange
+            yield return await Task.FromResult(new HotelOffer
             {
-                From = new DateOnly(2023, 10, 10),
-                To = new DateOnly(2023, 10, 20),
-            },
-            TotalPrice = new Price
-            {
-                Value = 200,
-                Currency = "EUR",
-            },
-        });
+                Id = Guid.NewGuid(),
+                Name = $"{faker.Address.City()} hotel",
+                Avaliability = new DateRange
+                {
+                    From = new DateOnly(2023, 10, 10),
+                    To = new DateOnly(2023, 10, 25),
+                },
+                TotalPrice = new Price
+                {
+                    Value = faker.Random.GaussianDecimal(250, 50),
+                    Currency = "EUR",
+                },
+            });
+        }
     }
 }
