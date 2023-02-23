@@ -4,6 +4,7 @@ using JsonStreamingServer.Core.Abstractions.Suppliers;
 using JsonStreamingServer.Core.Handlers;
 using JsonStreamingServer.Core.Services;
 using JsonStreamingServer.Suppliers.Generator;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersSupplierGenerator>();
 
-builder.Services.AddScoped<HotelOfferExternalIdGeneatingHandler>();
+builder.Services.AddScoped<HotelOffersRandomErrorHandler>();
+builder.Services.AddScoped(sp => ActivatorUtilities.CreateInstance<HotelOfferExternalIdGeneatingHandler>(sp, sp.GetRequiredService<HotelOffersRandomErrorHandler>()));
 builder.Services.AddScoped(sp => ActivatorUtilities.CreateInstance<HotelOfferSupplierHandler>(sp, sp.GetRequiredService<HotelOfferExternalIdGeneatingHandler>()));
 
 builder.Services.AddScoped<IHotelOfferRequestHandler>(sp => sp.GetRequiredService<HotelOfferSupplierHandler>()); ;

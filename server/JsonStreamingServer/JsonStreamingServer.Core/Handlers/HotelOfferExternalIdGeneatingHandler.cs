@@ -9,6 +9,12 @@ namespace JsonStreamingServer.Core.Handlers;
 
 public partial class HotelOfferExternalIdGeneatingHandler : AbstractHotelOfferStreamHandler
 {
+    public HotelOfferExternalIdGeneatingHandler(IHotelOfferStreamHandler nextHandler)
+    : base(nextHandler)
+    {
+    }
+
+
     public override async IAsyncEnumerable<Result<HotelOffer>> GetHotelOffersAsync(
         GetHotelOffersRequest request,
         IAsyncEnumerable<Result<HotelOffer>> inputStream,
