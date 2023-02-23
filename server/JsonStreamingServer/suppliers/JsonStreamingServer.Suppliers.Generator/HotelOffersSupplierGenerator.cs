@@ -18,6 +18,11 @@ public class HotelOffersSupplierGenerator : IHotelOffersSupplier
 
         for (int i = 0; i < 100; i++)
         {
+            if (i % 10 == 0)
+            { 
+                await Task.Delay(1000, cancellationToken);
+            }
+
             yield return await Task.FromResult(new HotelOffer
             {
                 Id = Guid.NewGuid(),
