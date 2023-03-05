@@ -3,9 +3,16 @@ using JsonStreamingServer.Core.Abstractions.Services;
 using JsonStreamingServer.Core.Abstractions.Suppliers;
 using JsonStreamingServer.Core.Handlers;
 using JsonStreamingServer.Core.Services;
-using JsonStreamingServer.Suppliers.Generator;
-using Microsoft.Extensions.DependencyInjection;
+using JsonStreamingServer.Suppliers.FileStream;
+using JsonStreamingServer.Suppliers.FileStream.Services;
+using JsonStreamingServer.Suppliers.FileStream.Services.Interfaces;
+//using JsonStreamingServer.Suppliers.Generator;
+using Serilog;
 using System.Text.Json.Serialization;
+
+Log.Logger = new LoggerConfiguration()
+           .MinimumLevel.Debug()
+           .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +28,10 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersSupplierGenerator>();
+builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersFileStreamSupplier>();
+builder.Services.AddSingleton<ICsvHotelReaderService, CsvHotelReaderService>();
+builder.Services.AddSingleton(Log.Logger);
+
 
 builder.Services.AddScoped<HotelOffersRandomErrorHandler>();
 builder.Services.AddScoped(sp => ActivatorUtilities.CreateInstance<HotelOfferExternalIdGeneatingHandler>(sp, sp.GetRequiredService<HotelOffersRandomErrorHandler>()));
