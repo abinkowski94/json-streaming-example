@@ -6,32 +6,26 @@ using System.Runtime.CompilerServices;
 
 namespace JsonStreamingServer.Core.Handlers
 {
-    public class HotelOffersRandomErrorHandler : AbstractHotelOfferStreamHandler
+    public class HotelOffersMaxResultsHandler : AbstractHotelOfferStreamHandler
     {
-        private readonly Random _random;
-
-        public HotelOffersRandomErrorHandler(IHotelOfferStreamHandler nextHanlder)
-            : base(nextHanlder)
-        {
-            _random = new Random();
-        }
-
         public async override IAsyncEnumerable<Result<HotelOffer>> GetHotelOffersAsync(
             GetHotelOffersRequest request,
             IAsyncEnumerable<Result<HotelOffer>> inputStream,
-            [EnumeratorCancellation] CancellationToken cancellationToken)
+            [EnumeratorCancellation]CancellationToken cancellationToken)
         {
+            var count = 0;
+
             await foreach (var response in inputStream)
             {
-                var value = _random.NextDouble();
+                count++;
 
-                if (request.ErrorChance.HasValue && value < request.ErrorChance)
+                if (!request.MaxResults.HasValue || count <= request.MaxResults.Value)
                 {
-                    yield return new Exception("Oops, there was an error!");
+                    yield return response;
                 }
                 else
                 {
-                    yield return response;
+                    yield break;
                 }
             }
         }

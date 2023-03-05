@@ -3,8 +3,11 @@ using JsonStreamingServer.Core.Abstractions.Services;
 using JsonStreamingServer.Core.Abstractions.Suppliers;
 using JsonStreamingServer.Core.Handlers;
 using JsonStreamingServer.Core.Services;
+using JsonStreamingServer.Suppliers.Database;
+using JsonStreamingServer.Suppliers.Database.DbContexts;
 using JsonStreamingServer.Suppliers.Generator;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,16 +22,36 @@ builder.Services.AddControllers()
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(cfg =>
+{
+    cfg.MapType<DateOnly>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Format = "date"
+    });
+});
 
+builder.Services.AddDbContext<HotelOffersDbContext>(optionsBuilder =>
+{
+    var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DbFiles", "hotels.db");
+    optionsBuilder.UseSqlite($"Data Source={dbPath}");
+});
+
+builder.Services.AddScoped<IHotelOffersSupplier, DatabaseHotelOffersSupplier>();
 builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersSupplierGenerator>();
 
-builder.Services.AddScoped<HotelOffersRandomErrorHandler>();
-builder.Services.AddScoped(sp => ActivatorUtilities.CreateInstance<HotelOfferExternalIdGeneatingHandler>(sp, sp.GetRequiredService<HotelOffersRandomErrorHandler>()));
-builder.Services.AddScoped(sp => ActivatorUtilities.CreateInstance<HotelOfferSupplierHandler>(sp, sp.GetRequiredService<HotelOfferExternalIdGeneatingHandler>()));
+builder.Services.AddScoped<HotelOffersMaxResultsHandler>();
 
-builder.Services.AddScoped<IHotelOfferRequestHandler>(sp => sp.GetRequiredService<HotelOfferSupplierHandler>()); ;
+builder.Services.AddScoped(sp => ActivatorUtilities
+    .CreateInstance<HotelOffersRandomErrorHandler>(sp, sp.GetRequiredService<HotelOffersMaxResultsHandler>()));
 
+builder.Services.AddScoped(sp => ActivatorUtilities
+    .CreateInstance<HotelOfferExternalIdGeneatingHandler>(sp, sp.GetRequiredService<HotelOffersRandomErrorHandler>()));
+
+builder.Services.AddScoped(sp => ActivatorUtilities
+    .CreateInstance<HotelOfferSupplierHandler>(sp, sp.GetRequiredService<HotelOfferExternalIdGeneatingHandler>()));
+
+builder.Services.AddScoped<IHotelOfferRequestHandler>(sp => sp.GetRequiredService<HotelOfferSupplierHandler>());
 builder.Services.AddScoped<IHotelService, HotelService>();
 
 var app = builder.Build();

@@ -7,15 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6F00C205-F48
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8BFB3BA0-D63A-4ED7-ACEE-9DF226715811}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonStreaming.Contracts", "..\..\contracts\JsonStreamingContracts\JsonStreaming.Contracts.csproj", "{B8FBD75D-2270-4443-A610-9503A047AD3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonStreaming.Contracts", "..\..\contracts\JsonStreamingContracts\JsonStreaming.Contracts.csproj", "{B8FBD75D-2270-4443-A610-9503A047AD3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonStreamingServer.WebApi", "JsonStreamingServer.WebApi\JsonStreamingServer.WebApi.csproj", "{055C3F9B-C5AD-454B-AAEE-A4C6D526958C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonStreamingServer.WebApi", "JsonStreamingServer.WebApi\JsonStreamingServer.WebApi.csproj", "{055C3F9B-C5AD-454B-AAEE-A4C6D526958C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonStreamingServer.Core", "JsonStreamingServer.Core\JsonStreamingServer.Core.csproj", "{DE42CA11-AB2C-47E6-8B64-3B56BEDA4A74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonStreamingServer.Core", "JsonStreamingServer.Core\JsonStreamingServer.Core.csproj", "{DE42CA11-AB2C-47E6-8B64-3B56BEDA4A74}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "suppliers", "suppliers", "{3A8A755C-FD90-4149-B1FB-8D76D420833C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonStreamingServer.Suppliers.Generator", "suppliers\JsonStreamingServer.Suppliers.Generator\JsonStreamingServer.Suppliers.Generator.csproj", "{F96DC31B-220F-4A6D-B5BD-E6280D44A408}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonStreamingServer.Suppliers.Generator", "suppliers\JsonStreamingServer.Suppliers.Generator\JsonStreamingServer.Suppliers.Generator.csproj", "{F96DC31B-220F-4A6D-B5BD-E6280D44A408}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonStreamingServer.Suppliers.Database", "suppliers\JsonStreamingServer.Suppliers.Database\JsonStreamingServer.Suppliers.Database.csproj", "{2941681C-4A9D-4FA5-97BA-51FF84FAD84A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F96DC31B-220F-4A6D-B5BD-E6280D44A408}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F96DC31B-220F-4A6D-B5BD-E6280D44A408}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F96DC31B-220F-4A6D-B5BD-E6280D44A408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2941681C-4A9D-4FA5-97BA-51FF84FAD84A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2941681C-4A9D-4FA5-97BA-51FF84FAD84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2941681C-4A9D-4FA5-97BA-51FF84FAD84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2941681C-4A9D-4FA5-97BA-51FF84FAD84A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{DE42CA11-AB2C-47E6-8B64-3B56BEDA4A74} = {6F00C205-F481-43B2-B162-94B2237553D7}
 		{3A8A755C-FD90-4149-B1FB-8D76D420833C} = {6F00C205-F481-43B2-B162-94B2237553D7}
 		{F96DC31B-220F-4A6D-B5BD-E6280D44A408} = {3A8A755C-FD90-4149-B1FB-8D76D420833C}
+		{2941681C-4A9D-4FA5-97BA-51FF84FAD84A} = {3A8A755C-FD90-4149-B1FB-8D76D420833C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {36185A98-9DAF-4991-821F-1F51A41A0261}
