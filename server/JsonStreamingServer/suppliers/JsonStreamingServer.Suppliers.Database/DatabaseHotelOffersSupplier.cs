@@ -38,6 +38,7 @@ public class DatabaseHotelOffersSupplier : IHotelOffersSupplier
     private static HotelOffer Map(HotelOfferEntity hotelOfferEntity) => new()
     {
         Id = Guid.Parse($"00000000-0000-0000-0000-{hotelOfferEntity.Id:000000000000}"),
+        Supplier = nameof(Database),
         Avaliability = new DateRange
         {
             From = hotelOfferEntity.Pricings.Select(p => p.DayFrom).Min(),

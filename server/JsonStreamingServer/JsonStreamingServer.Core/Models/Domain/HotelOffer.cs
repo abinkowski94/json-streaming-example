@@ -3,6 +3,7 @@
 public class HotelOffer
 {
     public required Guid Id { get; set; }
+    public required string Supplier { get; set; }
 
     public required DateRange Avaliability { get; set; }
     public required Price TotalPrice { get; set; }

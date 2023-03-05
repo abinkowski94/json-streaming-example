@@ -21,7 +21,9 @@ public class HotelsController : ControllerBase
     }
 
     [HttpGet("offers-stream")]
-    public async IAsyncEnumerable<Response<HotelOffer>> GetHotelOffersAsync([FromQuery] GetHotelOffersHttpRequest httpRequest, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<Response<HotelOffer>> GetHotelOffersAsync(
+        [FromQuery] GetHotelOffersHttpRequest httpRequest,
+        [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         var request = CreateRequest(httpRequest);
 
@@ -54,6 +56,7 @@ public class HotelsController : ControllerBase
     private static HotelOffer MapOffer(Core.Models.Domain.HotelOffer offer) => new()
     {
         Id = offer.ExternalId!,
+        Supplier = offer.Supplier,
         Name = offer.Name,
         ShortDescription = offer.Content?.ShortDescription,
         Description = offer.Content?.Description,
