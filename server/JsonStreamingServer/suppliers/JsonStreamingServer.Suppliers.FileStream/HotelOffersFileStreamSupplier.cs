@@ -2,27 +2,36 @@
 using JsonStreamingServer.Core.Models.Domain;
 using JsonStreamingServer.Core.Models.Requests;
 using JsonStreamingServer.Core.Models.Results;
-using JsonStreamingServer.Suppliers.FileStream.Services.Interfaces;
+using JsonStreamingServer.Suppliers.FileStream.Services;
 using System.Runtime.CompilerServices;
 
 namespace JsonStreamingServer.Suppliers.FileStream
 {
     public class HotelOffersFileStreamSupplier : IHotelOffersSupplier
     {
-        private readonly ICsvHotelReaderService _csvHotelReaderService;
+        private readonly string _filePath;
 
-        public HotelOffersFileStreamSupplier(ICsvHotelReaderService csvHotelReaderService)
+        public HotelOffersFileStreamSupplier()
         {
-            _csvHotelReaderService = csvHotelReaderService;
+            _filePath = Path.Combine(AppContext.BaseDirectory, "Data", "HotelOffers.csv");
         }
 
         public async IAsyncEnumerable<Result<HotelOffer>> GetHotelOffers(
             GetHotelOffersRequest request,
             [EnumeratorCancellation] CancellationToken cancellationToken)
         {
-            await Task.Delay(1500, cancellationToken);
+            using var reader = new CsvHotelOfferReader(_filePath);
 
-            yield return await Task.FromResult(_csvHotelReaderService.GetNext());
+            var hotelOffer = await reader.GetNextOfferAsync(cancellationToken);
+
+            while (hotelOffer != null)
+            {
+                yield return hotelOffer;
+
+                hotelOffer = await reader.GetNextOfferAsync(cancellationToken);
+            }
+
+            yield break;
         }
     }
 }

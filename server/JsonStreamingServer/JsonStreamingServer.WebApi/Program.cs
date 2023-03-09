@@ -4,8 +4,6 @@ using JsonStreamingServer.Core.Abstractions.Suppliers;
 using JsonStreamingServer.Core.Handlers;
 using JsonStreamingServer.Core.Services;
 using JsonStreamingServer.Suppliers.FileStream;
-using JsonStreamingServer.Suppliers.FileStream.Services;
-using JsonStreamingServer.Suppliers.FileStream.Services.Interfaces;
 using JsonStreamingServer.Suppliers.Database;
 using JsonStreamingServer.Suppliers.Database.DbContexts;
 using JsonStreamingServer.Suppliers.Generator;
@@ -41,7 +39,6 @@ builder.Services.AddDbContext<HotelOffersDbContext>(optionsBuilder =>
 });
 
 builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersFileStreamSupplier>();
-builder.Services.AddSingleton<ICsvHotelReaderService, CsvHotelReaderService>();
 builder.Services.AddScoped<IHotelOffersSupplier, DatabaseHotelOffersSupplier>();
 builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersSupplierGenerator>();
 
