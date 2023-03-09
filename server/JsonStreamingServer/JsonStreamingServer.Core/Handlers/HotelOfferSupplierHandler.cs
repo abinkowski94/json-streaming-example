@@ -1,5 +1,6 @@
 ﻿using JsonStreamingServer.Core.Abstractions.Handlers;
 using JsonStreamingServer.Core.Abstractions.Suppliers;
+using JsonStreamingServer.Core.Extensions;
 using JsonStreamingServer.Core.Models.Domain;
 using JsonStreamingServer.Core.Models.Requests;
 using JsonStreamingServer.Core.Models.Results;
@@ -13,7 +14,7 @@ public class HotelOfferSupplierHandler : FirstHotelOfferStreamHandler
 
     public HotelOfferSupplierHandler(
         IHotelOfferStreamHandler nextHandler,
-        IEnumerable<IHotelOffersSupplier> suppliers) 
+        IEnumerable<IHotelOffersSupplier> suppliers)
         : base(nextHandler)
     {
         _suppliers = suppliers;
@@ -36,17 +37,45 @@ public class HotelOfferSupplierHandler : FirstHotelOfferStreamHandler
         [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         var streamEnumerators = _suppliers
-            .Select(s => s.GetHotelOffers(request, cancellationToken).GetAsyncEnumerator(cancellationToken));
+            .Select(s => GetEnumerator(request, s, cancellationToken))
+            .ToList();
 
         try
         {
-            foreach (var streamEnumerator in streamEnumerators)
+            var hasIncompleteEnumerator = false;
+
+            do
             {
-                if (await streamEnumerator.MoveNextAsync())
+                hasIncompleteEnumerator = false;
+
+                foreach (var streamEnumerator in streamEnumerators)
                 {
-                    yield return streamEnumerator.Current;
+                    Result<HotelOffer>? result;
+
+                    try
+                    {
+                        if (await streamEnumerator.MoveNextAsync())
+                        {
+                            result = streamEnumerator.Current;
+                            hasIncompleteEnumerator = true;
+                        }
+                        else
+                        {
+                            result = null;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        result = new Result<HotelOffer>(ex);
+                    }
+
+                    if (result is not null)
+                    {
+                        yield return result.Value;
+                    }
                 }
             }
+            while (hasIncompleteEnumerator);
         }
         finally
         {
@@ -54,7 +83,7 @@ public class HotelOfferSupplierHandler : FirstHotelOfferStreamHandler
             {
                 await streamEnumerator.DisposeAsync();
             }
-        }        
+        }
     }
 
     private async IAsyncEnumerable<Result<HotelOffer>> GetHotelOffersSupplierBySupplier(
@@ -63,10 +92,46 @@ public class HotelOfferSupplierHandler : FirstHotelOfferStreamHandler
     {
         foreach (var supplier in _suppliers)
         {
-            await foreach (var supplierResult in supplier.GetHotelOffers(request, cancellationToken))
+            var supplierResults = GetSupplierResults(request, supplier, cancellationToken);
+
+            await foreach (var supplierResult in supplierResults)
             {
                 yield return supplierResult;
             }
+        }
+    }
+
+    private static IAsyncEnumerator<Result<HotelOffer>> GetEnumerator(
+        GetHotelOffersRequest request,
+        IHotelOffersSupplier supplier,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            return supplier.GetHotelOffers(request, cancellationToken)
+                .GetAsyncEnumerator(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            return new Result<HotelOffer>(ex)
+                .ToAsyncEnumerable()
+                .GetAsyncEnumerator(cancellationToken);
+        }
+    }
+
+    private static IAsyncEnumerable<Result<HotelOffer>> GetSupplierResults(
+        GetHotelOffersRequest request,
+        IHotelOffersSupplier supplier,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            return supplier.GetHotelOffers(request, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            return new Result<HotelOffer>(ex)
+                .ToAsyncEnumerable();
         }
     }
 }

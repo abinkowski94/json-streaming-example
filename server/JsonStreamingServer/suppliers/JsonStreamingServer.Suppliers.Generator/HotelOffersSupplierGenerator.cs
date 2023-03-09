@@ -19,23 +19,38 @@ public class HotelOffersSupplierGenerator : IHotelOffersSupplier
         for (int i = 0; i < 100; i++)
         {
             if (i % 10 == 0)
-            { 
-                await Task.Delay(1000, cancellationToken);
+            {
+                var delay = faker.Random.GaussianInt(1000, 300);
+                await Task.Delay(delay, cancellationToken);
             }
+
+            var currency = faker.Finance.Currency();
+
+            var hasShortDescription = faker.Random.Bool(0.8f);
+            var hasDescription = hasShortDescription && faker.Random.Bool();
+
+            var startDate = faker.Date.FutureDateOnly();
+            var endDate = startDate.AddDays(faker.Random.GaussianInt(4, 3));
 
             yield return await Task.FromResult(new HotelOffer
             {
                 Id = Guid.NewGuid(),
+                Supplier = nameof(Generator),
                 Name = $"{faker.Address.City()} hotel",
+                Content = new Content
+                {
+                    ShortDescription = hasShortDescription ? faker.Lorem.Sentence() : null,
+                    Description = hasDescription ? faker.Lorem.Paragraph() : null,
+                },
                 Avaliability = new DateRange
                 {
-                    From = new DateOnly(2023, 10, 10),
-                    To = new DateOnly(2023, 10, 25),
+                    From = startDate,
+                    To = endDate,
                 },
                 TotalPrice = new Price
                 {
-                    Value = faker.Random.GaussianDecimal(250, 50),
-                    Currency = "EUR",
+                    Value = Math.Round(faker.Random.GaussianDecimal(250, 50), 2),
+                    Currency = currency.Code,
                 },
             });
         }
