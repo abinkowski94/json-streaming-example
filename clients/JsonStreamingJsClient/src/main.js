@@ -16,10 +16,10 @@ function streamResponse() {
         offersContainer.removeChild(offersContainer.lastChild);
     }
 
-    let offerId = 1;
+    let offerId = 0;
 
     oboeService.node('!.*', function (response) {
-        addResponse(response, offersContainer, offerId);
+        addResponse(response, offersContainer, offerId++);
     })
     .done(function () {
         const finishedContainer = document.createElement('p');
