@@ -1,7 +1,6 @@
 ﻿using JsonStreamingServer.Suppliers.FileStream.Services.Interfaces;
 using JsonStreamingServer.Core.Models.Domain;
 using CsvHelper;
-using Serilog;
 using System.Globalization;
 using System.Reflection;
 
@@ -9,13 +8,11 @@ namespace JsonStreamingServer.Suppliers.FileStream.Services
 {
     public class CsvHotelReaderService : ICsvHotelReaderService
     {
-        private readonly ILogger _logger;
         private int _index = 0;
         private readonly List<HotelOffer> HotelOffersData = new();
 
-        public CsvHotelReaderService(ILogger logger)
+        public CsvHotelReaderService()
         {
-            _logger = logger;
             HotelOffersData = GetCsvContents("HotelOffers");
         }
 
@@ -41,9 +38,9 @@ namespace JsonStreamingServer.Suppliers.FileStream.Services
                     ReturnContents.AddRange(ReadCsv.GetRecords<HotelOffer>());
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                _logger.Error($"Error: {e.Message}");
+                throw;
             }
 
             return ReturnContents;

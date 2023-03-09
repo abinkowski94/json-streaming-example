@@ -7,12 +7,7 @@ using JsonStreamingServer.Suppliers.FileStream;
 using JsonStreamingServer.Suppliers.FileStream.Services;
 using JsonStreamingServer.Suppliers.FileStream.Services.Interfaces;
 //using JsonStreamingServer.Suppliers.Generator;
-using Serilog;
 using System.Text.Json.Serialization;
-
-Log.Logger = new LoggerConfiguration()
-           .MinimumLevel.Debug()
-           .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,8 +25,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersFileStreamSupplier>();
 builder.Services.AddSingleton<ICsvHotelReaderService, CsvHotelReaderService>();
-builder.Services.AddSingleton(Log.Logger);
-
 
 builder.Services.AddScoped<HotelOffersRandomErrorHandler>();
 builder.Services.AddScoped(sp => ActivatorUtilities.CreateInstance<HotelOfferExternalIdGeneatingHandler>(sp, sp.GetRequiredService<HotelOffersRandomErrorHandler>()));
