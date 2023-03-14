@@ -3,6 +3,7 @@ using JsonStreamingServer.Core.Abstractions.Services;
 using JsonStreamingServer.Core.Abstractions.Suppliers;
 using JsonStreamingServer.Core.Handlers;
 using JsonStreamingServer.Core.Services;
+using JsonStreamingServer.Suppliers.FileStream;
 using JsonStreamingServer.Suppliers.Database;
 using JsonStreamingServer.Suppliers.Database.DbContexts;
 using JsonStreamingServer.Suppliers.Generator;
@@ -37,6 +38,7 @@ builder.Services.AddDbContext<HotelOffersDbContext>(optionsBuilder =>
     optionsBuilder.UseSqlite($"Data Source={dbPath}");
 });
 
+builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersFileStreamSupplier>();
 builder.Services.AddScoped<IHotelOffersSupplier, DatabaseHotelOffersSupplier>();
 builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersSupplierGenerator>();
 
