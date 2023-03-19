@@ -16,10 +16,17 @@ function streamResponse() {
         offersContainer.removeChild(offersContainer.lastChild);
     }
 
+    var table = document.createElement("table");
+    var tbody = document.createElement("tbody");
+    offersContainer.appendChild(table);
+    table.appendChild(tbody);
+
     let offerId = 0;
 
+    createHeader(tbody);
+
     oboeService.node('!.*', function (response) {
-        addResponse(response, offersContainer, offerId++);
+        addResponse(response, tbody, offerId++);
     })
     .done(function () {
         const finishedContainer = document.createElement('p');
@@ -29,22 +36,55 @@ function streamResponse() {
     });
 }
 
-function addResponse(response, offersContainer, offerId) {
-    const offerContainer = document.createElement('p');
-    offerContainer.id = offerId;
+function addResponse(response, tbody, offerId) {
+    
+    const rowOffer = document.createElement('tr');
+    rowOffer.id = offerId;
+    if (offerId % 2 === 0) {
+        rowOffer.style.backgroundColor = 'lightgrey';
+    } else {
+        rowOffer.style.backgroundColor = 'white';
+    }
+    cellData = document.createElement('td');
 
-    offerContainer.innerHTML = `no. ${offerContainer.id} | `;
+    cellData.innerHTML = `no. ${rowOffer.id}`;
+    rowOffer.appendChild(cellData);
 
     if (response.value) {
-        offerContainer.innerHTML += `supplier: ${response.value.supplier} | `;
-        offerContainer.innerHTML += response.value.id;
-        offerContainer.innerHTML += ' - ';
-        offerContainer.innerHTML += response.value.name;
+        cellData = document.createElement('td');
+        cellData.innerHTML += `supplier: ${response.value.supplier}`;
+        rowOffer.appendChild(cellData);
+        cellData = document.createElement('td');
+        cellData.innerHTML += response.value.id;
+        rowOffer.appendChild(cellData);
+        cellData = document.createElement('td');
+        cellData.innerHTML += response.value.name;
+        rowOffer.appendChild(cellData);
     }
     else if (response.error) {
-        offerContainer.innerHTML += response.error.message;
+        cellData = document.createElement('td')
+        offersContainer.innerHTML += response.error.message;
+        rowOffer.appendChild(cellData);
     }
 
-    offersContainer.appendChild(offerContainer);
-    offerContainer.scrollIntoView();
+    tbody.appendChild(rowOffer);
+    offersContainer.scrollIntoView();
+}
+
+function createHeader(tbody) {
+    const header = document.createElement('tr')
+    var cellData = document.createElement('td');
+    cellData.innerHTML += '<b>Number</b>';
+    header.appendChild(cellData);
+    cellData = document.createElement('td');
+    cellData.innerHTML += '<b>Supplier</b>';
+    header.appendChild(cellData);
+    cellData = document.createElement('td');
+    cellData.innerHTML += '<b>Identifier</b>';
+    header.appendChild(cellData);
+    cellData = document.createElement('td');
+    cellData.innerHTML += '<b>Name</b>';
+    header.appendChild(cellData);
+
+    tbody.appendChild(header);
 }
