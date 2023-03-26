@@ -3,20 +3,32 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function streamResponse() {
+    var mixSuppliers = document.getElementById('mixSuppliers').checked;
+
+    var url = 'http://localhost:5270/hotels/offers-stream?mix-supplier-offers=' + mixSuppliers;
+    
+    var maxResults = document.getElementById('maxResults').value;
+    console.log("Max: " + maxResults);
+
+    if (maxResults !== '') {
+        url += '&max-results=' + maxResults;
+    }
+
     const config = {
-        'url': 'http://localhost:5270/hotels/offers-stream?mix-supplier-offers=true',
+        'url': url,
         'method': 'GET',
         'cached': false
     };
 
     const oboeService = oboe(config);
     const offersContainer = document.getElementById('offersContainer');
-
+    
     while (offersContainer.lastChild) {
         offersContainer.removeChild(offersContainer.lastChild);
     }
 
     var table = document.createElement("table");
+    table.setAttribute("id", "offers");
     var tbody = document.createElement("tbody");
     offersContainer.appendChild(table);
     table.appendChild(tbody);
@@ -40,11 +52,7 @@ function addResponse(response, tbody, offerId) {
     
     const rowOffer = document.createElement('tr');
     rowOffer.id = offerId;
-    if (offerId % 2 === 0) {
-        rowOffer.style.backgroundColor = 'lightgrey';
-    } else {
-        rowOffer.style.backgroundColor = 'white';
-    }
+
     cellData = document.createElement('td');
 
     cellData.innerHTML = `no. ${rowOffer.id}`;
