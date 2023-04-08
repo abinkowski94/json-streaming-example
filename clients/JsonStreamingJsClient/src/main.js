@@ -6,7 +6,7 @@ function streamResponse() {
     var mixSuppliers = document.getElementById('mixSuppliers').checked;
 
     var url = 'http://localhost:5270/hotels/offers-stream?mix-supplier-offers=' + mixSuppliers;
-    
+
     var maxResults = document.getElementById('maxResults').value;
     console.log("Max: " + maxResults);
 
@@ -22,7 +22,7 @@ function streamResponse() {
 
     const oboeService = oboe(config);
     const offersContainer = document.getElementById('offersContainer');
-    
+
     while (offersContainer.lastChild) {
         offersContainer.removeChild(offersContainer.lastChild);
     }
@@ -40,16 +40,16 @@ function streamResponse() {
     oboeService.node('!.*', function (response) {
         addResponse(response, tbody, offerId++);
     })
-    .done(function () {
-        const finishedContainer = document.createElement('p');
-        finishedContainer.innerHTML = 'Finished...';
-        offersContainer.appendChild(finishedContainer);
-        finishedContainer.scrollIntoView();
-    });
+        .done(function () {
+            const finishedContainer = document.createElement('p');
+            finishedContainer.innerHTML = 'Finished...';
+            offersContainer.appendChild(finishedContainer);
+            finishedContainer.scrollIntoView();
+        });
 }
 
 function addResponse(response, tbody, offerId) {
-    
+
     const rowOffer = document.createElement('tr');
     rowOffer.id = offerId;
 
