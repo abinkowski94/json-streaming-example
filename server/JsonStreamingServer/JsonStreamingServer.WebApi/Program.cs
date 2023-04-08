@@ -14,6 +14,11 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+//builder.Logging.ClearProviders().AddConsole();
+
+builder.Services.AddLogging(configure => { 
+    configure.AddConsole();
+}); 
 
 builder.Services.AddControllers()
     .AddJsonOptions(cfg =>
@@ -38,7 +43,7 @@ builder.Services.AddDbContext<HotelOffersDbContext>(optionsBuilder =>
     optionsBuilder.UseSqlite($"Data Source={dbPath}");
 });
 
-builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersFileStreamSupplier>();
+builder.Services.AddScoped<IHotelOffersSupplier, HotelOffersFileStreamSupplier>();
 builder.Services.AddScoped<IHotelOffersSupplier, DatabaseHotelOffersSupplier>();
 builder.Services.AddSingleton<IHotelOffersSupplier, HotelOffersSupplierGenerator>();
 

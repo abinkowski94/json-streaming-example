@@ -1,15 +1,19 @@
 ﻿using JsonStreamingServer.Core.Models.Domain;
+using Microsoft.Extensions.Logging;
 
 namespace JsonStreamingServer.Suppliers.FileStream.Services
 {
     public class CsvHotelOfferReader : IDisposable
     {
+        private readonly ILogger _logger;
         private readonly string _csvFilePath;
+        private readonly int _minimumFieldsExpected = 9;
         private string _csvHeader;
         private readonly StreamReader _streamReader;
 
-        public CsvHotelOfferReader(string csvFilePath)
+        public CsvHotelOfferReader(ILogger<CsvHotelOfferReader> logger, string csvFilePath)
         {
+            _logger = logger;
             _csvFilePath = csvFilePath;
             _csvHeader = string.Empty;
             _streamReader = new StreamReader(_csvFilePath);
@@ -17,6 +21,11 @@ namespace JsonStreamingServer.Suppliers.FileStream.Services
 
         public async Task<HotelOffer?> GetNextOfferAsync(CancellationToken cancellationToken)
         {
+            if (_streamReader == null)
+            {
+                return null;
+            }
+
             if (string.IsNullOrEmpty(_csvHeader))
             {
                 _csvHeader = await _streamReader.ReadLineAsync(cancellationToken);
@@ -32,11 +41,16 @@ namespace JsonStreamingServer.Suppliers.FileStream.Services
             return MapToHotelOffer(line);
         }
 
-        private HotelOffer MapToHotelOffer(string line)
+        private HotelOffer? MapToHotelOffer(string line)
         {
+            HotelOffer? result = null;
+
             var fields = line.Split(',');
 
-            HotelOffer result = null;
+            if (fields == null || fields.Length < _minimumFieldsExpected)
+            {
+                return result;
+            }
 
             try
             {
@@ -65,9 +79,9 @@ namespace JsonStreamingServer.Suppliers.FileStream.Services
                     PriceBreakdown = null
                 };
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //We should log this
+                _logger.LogError(e, "Error occurred while mapping csv data input");
             }
 
             return result;
