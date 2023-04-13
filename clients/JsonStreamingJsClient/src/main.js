@@ -50,7 +50,7 @@ function createUrl(mixSuppliers, maxResults) {
     }
 
     if (maxResults) {
-        if (!mixParameter) {
+        if (mixParameter) {
             baseUrl += '&'
         }
         baseUrl += 'max-results=' + maxResults;
