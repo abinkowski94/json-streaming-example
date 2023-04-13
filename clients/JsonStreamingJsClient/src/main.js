@@ -4,18 +4,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function streamResponse() {
     var mixSuppliers = document.getElementById('mixSuppliers').checked;
-
-    var url = 'http://localhost:5270/hotels/offers-stream?mix-supplier-offers=' + mixSuppliers;
-
     var maxResults = document.getElementById('maxResults').value;
-    console.log("Max: " + maxResults);
-
-    if (maxResults !== '') {
-        url += '&max-results=' + maxResults;
-    }
-
+    
     const config = {
-        'url': url,
+        'url': createUrl(mixSuppliers, maxResults),
         'method': 'GET',
         'cached': false
     };
@@ -46,6 +38,25 @@ function streamResponse() {
             offersContainer.appendChild(finishedContainer);
             finishedContainer.scrollIntoView();
         });
+}
+
+function createUrl(mixSuppliers, maxResults) {
+    var baseUrl = 'http://localhost:5270/hotels/offers-stream?';
+    var mixParameter = false;
+
+    if (mixSuppliers) {
+        baseUrl += 'mix-supplier-offers=' + mixSuppliers;
+        mixParameter = true;
+    }
+
+    if (maxResults) {
+        if (!mixParameter) {
+            baseUrl += '&'
+        }
+        baseUrl += 'max-results=' + maxResults;
+    }
+
+    return baseUrl;
 }
 
 function addResponse(response, tbody, offerId) {
