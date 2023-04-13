@@ -8,14 +8,14 @@ namespace JsonStreamingServer.Suppliers.FileStream.Services
         private readonly ILogger _logger;
         private readonly string _csvFilePath;
         private readonly int _minimumFieldsExpected = 9;
-        private string _csvHeader;
+        private readonly bool _hasHeader;
         private readonly StreamReader _streamReader;
 
-        public CsvHotelOfferReader(ILogger<CsvHotelOfferReader> logger, string csvFilePath)
+        public CsvHotelOfferReader(ILogger<CsvHotelOfferReader> logger, string csvFilePath, bool hasHeader = true)
         {
             _logger = logger;
             _csvFilePath = csvFilePath;
-            _csvHeader = string.Empty;
+            _hasHeader = hasHeader;
             _streamReader = new StreamReader(_csvFilePath);
         }
 
@@ -26,9 +26,9 @@ namespace JsonStreamingServer.Suppliers.FileStream.Services
                 return null;
             }
 
-            if (string.IsNullOrEmpty(_csvHeader))
+            if (_hasHeader)
             {
-                _csvHeader = await _streamReader.ReadLineAsync(cancellationToken);
+                await _streamReader.ReadLineAsync(cancellationToken);
             }
 
             var line = await _streamReader.ReadLineAsync(cancellationToken);
