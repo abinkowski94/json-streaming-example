@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "JsonStreaming.Contracts": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:63084;http://localhost:63085"
+    }
+  }
+}

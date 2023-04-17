@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\contracts\JsonStreamingContracts\JsonStreaming.Contracts.csproj" />
     <ProjectReference Include="..\JsonStreamingServer.Core\JsonStreamingServer.Core.csproj" />
+    <ProjectReference Include="..\suppliers\JsonStreamingServer.Suppliers.FileStream\JsonStreamingServer.Suppliers.FileStream.csproj" />
     <ProjectReference Include="..\suppliers\JsonStreamingServer.Suppliers.Database\JsonStreamingServer.Suppliers.Database.csproj" />
     <ProjectReference Include="..\suppliers\JsonStreamingServer.Suppliers.Generator\JsonStreamingServer.Suppliers.Generator.csproj" />
   </ItemGroup>
