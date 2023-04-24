@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 using var client = new HttpClient
 {
-    BaseAddress = new Uri("http://localhost:5270")
+    BaseAddress = new Uri("https://localhost:5270")
 };
 
 using var httpRequest = new HttpRequestMessage
