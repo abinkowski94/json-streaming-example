@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D7BCE754-8765-45B5-B8B2-E893BA5CEC86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonSteaming.Client.Browser", "JsonSteaming.Client.Browser\JsonSteaming.Client.Browser.csproj", "{9DFC77DC-88A4-4B37-AB92-56E79A8A52C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DFC77DC-88A4-4B37-AB92-56E79A8A52C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFC77DC-88A4-4B37-AB92-56E79A8A52C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFC77DC-88A4-4B37-AB92-56E79A8A52C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFC77DC-88A4-4B37-AB92-56E79A8A52C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9DFC77DC-88A4-4B37-AB92-56E79A8A52C7} = {D7BCE754-8765-45B5-B8B2-E893BA5CEC86}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {598CD75D-5C0E-48D6-84C1-1A03249A1738}
+	EndGlobalSection
+EndGlobal
