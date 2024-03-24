@@ -9,9 +9,9 @@ public class HotelOffersDbContext : DbContext
     {
     }
 
-    internal DbSet<HotelOfferEntity> HotelOffers { get; set; }
-    internal DbSet<ImageEntity> Images { get; set; }
-    internal DbSet<PricingEntity> Pricings { get; set; }
+    internal DbSet<HotelOfferEntity> HotelOffers { get; init; }
+    internal DbSet<ImageEntity> Images { get; init; }
+    internal DbSet<PricingEntity> Pricings { get; init; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

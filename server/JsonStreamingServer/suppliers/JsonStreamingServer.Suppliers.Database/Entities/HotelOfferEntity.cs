@@ -8,11 +8,11 @@ internal class HotelOfferEntity
         Pricings = new HashSet<PricingEntity>();
     }
 
-    public required int Id { get; set; }
-    public required string Name { get; set; }
-    public string? ShortDescription { get; set; }
-    public string? Description { get; set; }
+    public required int Id { get; init; }
+    public required string Name { get; init; }
+    public string? ShortDescription { get; init; }
+    public string? Description { get; init; }
 
-    public ICollection<ImageEntity> Images { get; private set; }
-    public ICollection<PricingEntity> Pricings { get; private set; }
+    public ICollection<ImageEntity> Images { get; private init; }
+    public ICollection<PricingEntity> Pricings { get; private init; }
 }

@@ -2,6 +2,6 @@
 
 public class DateRange
 {
-    public required DateOnly From { get; set; }
-    public required DateOnly To { get; set; }
+    public required DateOnly From { get; init; }
+    public required DateOnly To { get; init; }
 }

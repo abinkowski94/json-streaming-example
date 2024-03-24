@@ -2,7 +2,7 @@
 
 public class PriceBreakdownItem
 {
-    public required Price Price { get; set; }
+    public required Price Price { get; init; }
 
-    public required AgeRange AgeRange { get; set; }
+    public required AgeRange AgeRange { get; init; }
 }

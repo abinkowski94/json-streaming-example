@@ -27,7 +27,7 @@ namespace JsonStreamingServer.Suppliers.FileStream
 
             var hotelOffer = await reader.GetNextOfferAsync(cancellationToken);
 
-            while (hotelOffer != null)
+            while (hotelOffer is not null)
             {
                 yield return hotelOffer;
 

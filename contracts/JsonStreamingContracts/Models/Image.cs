@@ -2,7 +2,7 @@
 
 public class Image
 {
-    public required string Url { get; set; }
+    public required string Url { get; init; }
 
-    public string? Caption { get; set; }
+    public string? Caption { get; init; }
 }

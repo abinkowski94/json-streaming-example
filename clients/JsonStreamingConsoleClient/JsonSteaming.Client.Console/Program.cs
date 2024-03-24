@@ -1,11 +1,11 @@
-﻿using JsonStreaming.Contracts.Models;
+﻿using JsonSteaming.Client.Console;
+using JsonStreaming.Contracts.Models;
 using JsonStreaming.Contracts.Responses;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 using var client = new HttpClient
 {
-    BaseAddress = new Uri("http://localhost:5270")
+    BaseAddress = new Uri("https://localhost:5270")
 };
 
 using var httpRequest = new HttpRequestMessage
@@ -15,15 +15,9 @@ using var httpRequest = new HttpRequestMessage
 };
 
 using var httpResponse = await client.SendAsync(httpRequest, HttpCompletionOption.ResponseHeadersRead);
-
 using var responseStream = await httpResponse.Content.ReadAsStreamAsync();
 
-var jsonResponseStream = JsonSerializer.DeserializeAsyncEnumerable<Response<HotelOffer>>(responseStream, new JsonSerializerOptions
-{
-    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-    PropertyNameCaseInsensitive = true,
-});
-
+var jsonResponseStream = JsonSerializer.DeserializeAsyncEnumerable<Response<HotelOffer>>(responseStream, Consts.StreamingSerializerOptions);
 var offerNumber = 1;
 
 await foreach(var response in jsonResponseStream)

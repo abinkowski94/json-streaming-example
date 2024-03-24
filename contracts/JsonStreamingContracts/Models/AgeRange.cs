@@ -2,6 +2,6 @@
 
 public class AgeRange
 {
-    public required uint From { get; set; }
-    public required uint To { get; set; }
+    public required uint From { get; init; }
+    public required uint To { get; init; }
 }

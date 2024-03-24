@@ -1,0 +1,97 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F6CEAAA8-68C6-4AD5-B092-90ADFB24251D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "server", "server", "{B919B1D3-E4E9-4740-8C10-DECF89AE6C74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "suppliers", "suppliers", "{23E764E5-38FA-4B7F-A524-657785A7EA1B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "clients", "clients", "{6B75C70B-5824-4682-88F4-663E9CFE392C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "console", "console", "{52310BB9-B931-4EBF-9E70-F981E13A6CD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "browser", "browser", "{5C961394-FA5E-49DA-8FC0-C14ADA0A4944}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "contracts", "contracts", "{DD7D0496-FD4F-47E1-9670-DFA550DF8C7F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonStreamingServer.Suppliers.Database", "server\JsonStreamingServer\suppliers\JsonStreamingServer.Suppliers.Database\JsonStreamingServer.Suppliers.Database.csproj", "{172109D8-F376-46B7-B929-64C4AB954D5A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonStreamingServer.Suppliers.FileStream", "server\JsonStreamingServer\suppliers\JsonStreamingServer.Suppliers.FileStream\JsonStreamingServer.Suppliers.FileStream.csproj", "{EB18CB68-9BC5-4F63-B79E-43DAEC6B1C75}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonStreamingServer.Suppliers.Generator", "server\JsonStreamingServer\suppliers\JsonStreamingServer.Suppliers.Generator\JsonStreamingServer.Suppliers.Generator.csproj", "{374965BD-EF96-40A7-9445-3603C2FE4D46}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonStreamingServer.Core", "server\JsonStreamingServer\JsonStreamingServer.Core\JsonStreamingServer.Core.csproj", "{E3F6375C-7999-4E5C-B010-A0BFB325F51F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonStreamingServer.WebApi", "server\JsonStreamingServer\JsonStreamingServer.WebApi\JsonStreamingServer.WebApi.csproj", "{394C3150-3D30-4AF6-A86B-420C18D24AC7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonStreaming.Contracts", "contracts\JsonStreamingContracts\JsonStreaming.Contracts.csproj", "{4CAE4045-B79F-4FD9-BDBA-A87B317692BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonSteaming.Client.Console", "clients\JsonStreamingConsoleClient\JsonSteaming.Client.Console\JsonSteaming.Client.Console.csproj", "{1EC6F7D9-EE80-43DC-9D4E-BB9B0AFB0D5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonSteaming.Client.Browser", "clients\JsonStreamingJsClient\JsonSteaming.Client.Browser\JsonSteaming.Client.Browser.csproj", "{108F5036-7249-4776-A819-D6288218CFF7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{172109D8-F376-46B7-B929-64C4AB954D5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{172109D8-F376-46B7-B929-64C4AB954D5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{172109D8-F376-46B7-B929-64C4AB954D5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{172109D8-F376-46B7-B929-64C4AB954D5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB18CB68-9BC5-4F63-B79E-43DAEC6B1C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB18CB68-9BC5-4F63-B79E-43DAEC6B1C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB18CB68-9BC5-4F63-B79E-43DAEC6B1C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB18CB68-9BC5-4F63-B79E-43DAEC6B1C75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{374965BD-EF96-40A7-9445-3603C2FE4D46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{374965BD-EF96-40A7-9445-3603C2FE4D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{374965BD-EF96-40A7-9445-3603C2FE4D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{374965BD-EF96-40A7-9445-3603C2FE4D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3F6375C-7999-4E5C-B010-A0BFB325F51F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3F6375C-7999-4E5C-B010-A0BFB325F51F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3F6375C-7999-4E5C-B010-A0BFB325F51F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3F6375C-7999-4E5C-B010-A0BFB325F51F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{394C3150-3D30-4AF6-A86B-420C18D24AC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{394C3150-3D30-4AF6-A86B-420C18D24AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{394C3150-3D30-4AF6-A86B-420C18D24AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{394C3150-3D30-4AF6-A86B-420C18D24AC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CAE4045-B79F-4FD9-BDBA-A87B317692BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CAE4045-B79F-4FD9-BDBA-A87B317692BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CAE4045-B79F-4FD9-BDBA-A87B317692BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CAE4045-B79F-4FD9-BDBA-A87B317692BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EC6F7D9-EE80-43DC-9D4E-BB9B0AFB0D5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EC6F7D9-EE80-43DC-9D4E-BB9B0AFB0D5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EC6F7D9-EE80-43DC-9D4E-BB9B0AFB0D5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EC6F7D9-EE80-43DC-9D4E-BB9B0AFB0D5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{108F5036-7249-4776-A819-D6288218CFF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{108F5036-7249-4776-A819-D6288218CFF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{108F5036-7249-4776-A819-D6288218CFF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{108F5036-7249-4776-A819-D6288218CFF7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B919B1D3-E4E9-4740-8C10-DECF89AE6C74} = {F6CEAAA8-68C6-4AD5-B092-90ADFB24251D}
+		{23E764E5-38FA-4B7F-A524-657785A7EA1B} = {B919B1D3-E4E9-4740-8C10-DECF89AE6C74}
+		{6B75C70B-5824-4682-88F4-663E9CFE392C} = {F6CEAAA8-68C6-4AD5-B092-90ADFB24251D}
+		{52310BB9-B931-4EBF-9E70-F981E13A6CD1} = {6B75C70B-5824-4682-88F4-663E9CFE392C}
+		{5C961394-FA5E-49DA-8FC0-C14ADA0A4944} = {6B75C70B-5824-4682-88F4-663E9CFE392C}
+		{DD7D0496-FD4F-47E1-9670-DFA550DF8C7F} = {F6CEAAA8-68C6-4AD5-B092-90ADFB24251D}
+		{172109D8-F376-46B7-B929-64C4AB954D5A} = {23E764E5-38FA-4B7F-A524-657785A7EA1B}
+		{EB18CB68-9BC5-4F63-B79E-43DAEC6B1C75} = {23E764E5-38FA-4B7F-A524-657785A7EA1B}
+		{374965BD-EF96-40A7-9445-3603C2FE4D46} = {23E764E5-38FA-4B7F-A524-657785A7EA1B}
+		{E3F6375C-7999-4E5C-B010-A0BFB325F51F} = {B919B1D3-E4E9-4740-8C10-DECF89AE6C74}
+		{394C3150-3D30-4AF6-A86B-420C18D24AC7} = {B919B1D3-E4E9-4740-8C10-DECF89AE6C74}
+		{4CAE4045-B79F-4FD9-BDBA-A87B317692BB} = {DD7D0496-FD4F-47E1-9670-DFA550DF8C7F}
+		{1EC6F7D9-EE80-43DC-9D4E-BB9B0AFB0D5A} = {52310BB9-B931-4EBF-9E70-F981E13A6CD1}
+		{108F5036-7249-4776-A819-D6288218CFF7} = {5C961394-FA5E-49DA-8FC0-C14ADA0A4944}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F4D2222-6144-4EF0-89A1-6B2D2DD90C40}
+	EndGlobalSection
+EndGlobal
