@@ -3,18 +3,15 @@ using JsonStreamingServer.Core.Abstractions.Services;
 using JsonStreamingServer.Core.Abstractions.Suppliers;
 using JsonStreamingServer.Core.Handlers;
 using JsonStreamingServer.Core.Services;
-using JsonStreamingServer.Suppliers.FileStream;
 using JsonStreamingServer.Suppliers.Database;
 using JsonStreamingServer.Suppliers.Database.DbContexts;
+using JsonStreamingServer.Suppliers.FileStream;
 using JsonStreamingServer.Suppliers.Generator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-//builder.Logging.ClearProviders().AddConsole();
 
 builder.Services.AddLogging(configure => { 
     configure.AddConsole();
@@ -26,7 +23,6 @@ builder.Services.AddControllers()
         cfg.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(cfg =>
 {
