@@ -1,0 +1,24 @@
+@startuml deplotment-diagram
+title "Demo application deployment diagram"
+
+node browser as "Web browser"
+node consoleApp as "Console application"
+node server as "API" {
+    component csvProvider as "CSV data stream provider"
+    component databaseProvider as "Database stream provider"
+    component generator as "Generated data stream provider"
+    component endpoint as "API endpoint"
+}
+
+file csvFile as "CSV file"
+database database as "Database"
+
+browser --> endpoint
+consoleApp --> endpoint
+
+csvProvider --> csvFile
+databaseProvider --> database
+
+endpoint -down[hidden]-> databaseProvider
+generator -down[hidden]-> csvProvider
+@enduml
